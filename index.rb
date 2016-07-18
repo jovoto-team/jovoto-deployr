@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'sinatra'
-require 'crack'
 require 'json'
 require 'aws-sdk'
 
