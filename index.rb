@@ -18,8 +18,10 @@ class Dispatcher
       stack_id: '08fa10ff-dcda-45f8-afec-5b0348a49141',
       app_id:   APPS[branch],
       command:  {
-        Name: 'deploy',
-        Args: {migrate: ["true"]}
+        name: 'deploy',
+        args: {
+          migrate: ['true']
+        }
       }
     }
     p workload
