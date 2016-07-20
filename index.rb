@@ -10,7 +10,7 @@ APPS = {
 
 class Dispatcher
   def initialize
-    @opsworks = Aws::OpsWorks::Client.new
+    @opsworks = Aws::OpsWorks::Client.new region: 'us-east-1
   end
 
   def go branch
