@@ -14,21 +14,20 @@ class Dispatcher
   end
 
   def go branch
+    app_id = APPS[branch] or return p "the branch #{branch} is not configured for auto-deploy."
+
     workload = {
       stack_id: '08fa10ff-dcda-45f8-afec-5b0348a49141',
-      app_id:   APPS[branch],
+      app_id:   app_id,
       command:  {
         name: 'deploy',
-        args: {
-          migrate: ['true']
-        }
+        args: { migrate: ['true'] }
       }
     }
-    p workload
+    # p workload
     begin
-      result = @opsworks.create_deployment workload
-      p result
-      p "dispatched to '#{branch}'"
+      @opsworks.create_deployment workload
+      p "dispatched branch '#{branch}' -> app #{app_id}"
     rescue Exception => e
       p e.inspect
       p e.backtrace
@@ -37,13 +36,10 @@ class Dispatcher
 end
 
 post '/' do
-  p "received post"
   if (payload = params[:payload])
-    parsed = JSON::parse(payload)
-    puts parsed
-    ref = parsed['ref']
+    parsed  = JSON::parse(payload)
+    ref     = parsed['ref']
     if branch = ref.gsub(%r{refs/heads/}, '')
-      p "-> rebuilding #{branch}"
       Dispatcher.new.go branch
     end
   end
