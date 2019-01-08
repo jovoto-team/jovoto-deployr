@@ -1,5 +1,5 @@
 GEM
-  remote: http://gemcutter.org/
+  remote: https://rubygems.org/
   specs:
     aws-sdk (2.11.201)
       aws-sdk-resources (= 2.11.201)
